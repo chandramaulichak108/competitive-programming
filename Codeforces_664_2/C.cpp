@@ -6,19 +6,29 @@ typedef long long int lli;
 
 int solve(int n,int m,int a[],int b[])
 {
-    int dp[n];
-    for(int i=0;i<n;i++)
+    for(int res=0;res<pow(2,9);res++)
     {
-        dp[i]=INT_MAX;
-        for(int j=0;j<m;j++)
+        int f1=0;
+        for(int i=0;i<n;i++)
         {
-            if(i>0)
-                dp[i]=min(dp[i-1]|dp[i],dp[i-1]|(a[i]&b[j])); 
-            else
-                dp[i]=min(dp[i],a[i]&b[j]);
+            int f=0;
+            for(int j=0;j<m;j++)
+            {
+                if(((a[i]&b[j])|res)==res)
+                {
+                    f=1;
+                    break;
+                }
+            }
+            if(f==0)
+            {
+                f1=1;
+                break;
+            }
         }
+        if(f1==0)
+            return res; 
     }
-    return dp[n-1];
 }
 
 int main()
